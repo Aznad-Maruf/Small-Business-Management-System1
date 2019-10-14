@@ -1,0 +1,11 @@
+E:\c#\Assignment 8\project 2\project 2\bin\Debug\project 2.exe.config
+E:\c#\Assignment 8\project 2\project 2\bin\Debug\project 2.exe
+E:\c#\Assignment 8\project 2\project 2\bin\Debug\project 2.pdb
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project 2.csprojAssemblyReference.cache
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project_2.Sale.resources
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project_2.Properties.Resources.resources
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project 2.csproj.GenerateResource.cache
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project 2.csproj.CoreCompileInputs.cache
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project 2.exe
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project 2.pdb
+E:\c#\Assignment 8\project 2\project 2\obj\Debug\project_2.Purchase.resources
