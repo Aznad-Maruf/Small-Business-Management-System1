@@ -1,6 +1,6 @@
 ﻿namespace SmallBusinessManagementSystem.UI
 {
-    partial class Purchase
+    partial class PurchaseUI
     {
         /// <summary>
         /// Required designer variable.

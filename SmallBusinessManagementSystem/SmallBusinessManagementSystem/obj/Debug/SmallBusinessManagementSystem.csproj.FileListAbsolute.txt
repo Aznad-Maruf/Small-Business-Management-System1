@@ -7,5 +7,5 @@ F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\bin
 F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\bin\Debug\SmallBusinessManagementSystem.pdb
 F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.exe
 F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.pdb
-F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.UI.Purchase.resources
-F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.UI.Sales.resources
+F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.UI.PurchaseUI.resources
+F:\BITM\Projects\SmallBusinessManagementSystem\SmallBusinessManagementSystem\obj\Debug\SmallBusinessManagementSystem.UI.SalesUI.resources

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SmallBusinessManagementSystem.UI
 {
-    public partial class Purchase : Form
+    public partial class PurchaseUI : Form
     {
-        public Purchase()
+        public PurchaseUI()
         {
             InitializeComponent();
         }
