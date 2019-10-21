@@ -1,5 +1,4 @@
 
-
 CREATE DATABASE Project1DB;
 USE Project1DB;
 
@@ -15,21 +14,25 @@ INSERT INTO Category (Code, Name) VALUES ('1003', 'Motherboard');
 INSERT INTO Category (Code, Name) VALUES ('1004', 'Keyboard');
 INSERT INTO Category (Code, Name) VALUES ('1005', 'Soundbox');
 INSERT INTO Category (Code, Name) VALUES ('1006', 'Monitor');
+INSERT INTO Category (Code, Name) VALUES ('1007', 'Headphone');
+
 
 CREATE TABLE Product(
 Code VARCHAR(255) PRIMARY KEY,
 Name VARCHAR(255) UNIQUE NOT NULL,
 Category VARCHAR(255) NOT NULL,
 ReorderLevel INT NOT NULL,
-Description TEXT
+Description TEXT,
+
+CONSTRAINT FK_Category FOREIGN KEY (Category) REFERENCES Category(Code)
 )
 
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1000', 'Samsung Galaxy Y', 'Mobile', 100, 'Old is gold');
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1001', 'Samsung Galaxy S', 'Mobile', 50, 'New is smart');
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1002', 'iPhone 8', 'Mobile', 80, 'Elegant');
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1003', 'Nokia 800 Tough', 'Mobile', 200, 'Daddy is back.');
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1004', 'JBL Everest Elite 750NC', 'Headphone', 100, 'Take a sound adventure with us');
-INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1005', 'Apple iMac 21.5" MMQA2', 'Desktop', 150, 'It''s Apple!');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1000', 'Samsung Galaxy Y', '1000', 100, 'Old is gold');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1001', 'Samsung Galaxy S', '1000', 50, 'New is smart');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1002', 'iPhone 8', '1000', 80, 'Elegant');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1003', 'Nokia 800 Tough', '1000', 200, 'Daddy is back.');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1004', 'JBL Everest Elite 750NC', '1007', 100, 'Take a sound adventure with us');
+INSERT INTO Product (Code, Name, Category, ReorderLevel, Description) VALUES ('1005', 'Apple iMac 21.5" MMQA2', '1001', 150, 'It''s Apple!');
 
 
 CREATE TABLE Customer(
@@ -73,16 +76,19 @@ CREATE TABLE Sales(
 	Product VARCHAR(255) NOT NULL,
 	Quantity NUMERIC(18,2) NOT NULL,
 	CONSTRAINT PK_Sales PRIMARY KEY(SalesCode),
-	CONSTRAINT FK_Customer FOREIGN KEY(Customer) REFERENCES Customer(Code),
-	CONSTRAINT FK_Category FOREIGN KEY(Category) REFERENCES Category(Code),
-	CONSTRAINT FK_Product FOREIGN KEY(Product) REFERENCES Product(Code)
+	CONSTRAINT FK_CustomerS FOREIGN KEY(Customer) REFERENCES Customer(Code),
+	CONSTRAINT FK_CategoryS FOREIGN KEY(Category) REFERENCES Category(Code),
+	CONSTRAINT FK_ProductS FOREIGN KEY(Product) REFERENCES Product(Code)
 )
 
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-02-03', '1000', '1001', '1005', '200');
+SET DATEFORMAT 'dmy';
+
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('03-OCT-1999', '1000', '1001', '1000', '200');
 INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-12-09', '1000', '1003', '1004', '2');
 INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-08-03', '1003', '1000', '1002', '3');
 INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-13', '1004', '1000', '1003', '1');
 INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-23', '1001', '1003', '1004', '1');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-23', '1001', '1001', '1003', '43');
 
 
 CREATE TABLE Purchase(
@@ -111,6 +117,7 @@ INSERT INTO Purchase(InvoiceNo, Date, Supplier, Category, Product, ManufactureDa
 INSERT INTO Purchase(InvoiceNo, Date, Supplier, Category, Product, ManufactureDate, Quantity, UnitPrice, MRP, Remarks) VALUES ('292589cy', '2018-07-23', '1004', '1003', '1004', '2005-07-21', '750', '500', '1000', 'Sell besi lav mondo na.');
 INSERT INTO Purchase(InvoiceNo, Date, Supplier, Category, Product, ManufactureDate, Quantity, UnitPrice, MRP, Remarks) VALUES ('aa29cc', '2019-01-03', '1001', '1000', '1002', '2010-02-01', '1050', '25000', '45000', 'Sell kom lav valoi.');
 INSERT INTO Purchase(InvoiceNo, Date, Supplier, Category, Product, ManufactureDate, Quantity, UnitPrice, MRP, Remarks) VALUES ('888829cc', '2018-07-23', '1002', '1001', '1005', '2009-02-11', '250', '70000', '90000', 'Sell kom lav besi.');
+INSERT INTO Purchase(InvoiceNo, Date, Supplier, Category, Product, ManufactureDate, Quantity, UnitPrice, MRP, Remarks) VALUES ('u9l29cc', '2018-07-23', '1002', '1000', '1003', '2009-02-11', '1', '70000', '90000', 'Sell kom lav besi.');
 
 SELECT * FROM Supplier;
 SELECT * FROM Product;
@@ -130,14 +137,80 @@ SELECT Product AS 'Products(Code)', ManufactureDate AS 'Manufactured Date', Expi
 --Sales--
 
 
+----------- Combined ----------
+SELECT Name + '(' + Code + ')' AS Category FROM Category
+SELECT Name + '(' + Code + ')' AS Produt FROM Product WHERE Category = '1000'
+
+SELECT Quantity FROM Available WHERE Category = '1000' AND Product = '1000';
+
+/*
+CREATE VIEW AvailableTemp AS
+SELECT P.Category AS Category, P.Product AS Product, P.Quantity AS PQ, S.Quantity AS SQ,
+CASE
+	WHEN S.Quantity IS NULL THEN P.Quantity
+	ELSE P.Quantity-S.Quantity
+END AS AvailableQuantity
+FROM Purchase AS P LEFT JOIN Sales AS S ON P.Product = S.Product AND P.Category = S.Category;
+
+CREATE VIEW Available AS
+SELECT Category, Product, SUM(AvailableQuantity)AS Quantity FROM AvailableTemp GROUP BY Category, Product;
+
+CREATE VIEW Available AS
+SELECT P.Product, AvailableQuantity AS Quantity
+FROM
+SELECT P.Product AS Product,
+CASE
+	WHEN S.Quantity IS NULL THEN P.Quantity
+	ELSE P.Quantity-S.Quantity
+END AS AvailableQuantity
+FROM Purchase AS P LEFT JOIN Sales AS S ON P.Product = S.Product GROUP BY P.Product;
+
+SELECT P.Product AS Product, SUM(P.Quantity) AS PQ, SUM(S.Quantity) AS SQ 
+FROM Purchase AS P LEFT JOIN Sales AS S ON P.Product = S.Product GROUP BY P.Product;
+
+SELECT Product, PQ FROM 
+ SELECT Category, Product,SUM(Quantity) AS PQ FROM Purchase GROUP BY  Category,Product;
+
+ SELECT Product, SQ FROM 
+ SELECT Category, Product,SUM(Quantity) AS SQ FROM Sales GROUP BY  Category,Product;
+
+ SELECT P.Category AS Category, P.Product AS Product, SUM(P.Quantity)-SUM(S.Quantity) AS AvailableQuantity 
+ FROM Purchase AS P LEFT JOIN Sales AS S ON P.Category = S.Category AND P.Product = S.Product GROUP BY P.Category, P.Product;
+
+ SELECT P.Category AS Category, P.Product AS Product, P.Quantity AS PQ, S.Quantity AS SQ
+ FROM Purchase AS P LEFT JOIN Sales AS S ON P.Category = S.Category AND P.Product = S.Product GROUP BY P.Category, P.Product;
 
 
+ SELECT P.Category, P.Product, SUM(P.Quantity) AS PQ FROM Purchase AS P GROUP BY P.Category, P.Product;
+ SELECT S.Category, S.Product, SUM(S.Quantity) AS SQ FROM Sales AS S GROUP BY S.Category, S.Product;
+*/
 
+ CREATE VIEW Available AS
+ SELECT Pro.PC AS Category, Pro.PP AS Product, 
+ CASE 
+	WHEN SQ IS NULL THEN PQ
+	ELSE PQ-SQ
+ END AS Quantity FROM
+	(SELECT P.Category AS PC, P.Product AS PP, SUM(P.Quantity) AS PQ FROM Purchase AS P GROUP BY P.Category, P.Product) AS Pro
+		LEFT JOIN
+		(SELECT S.Category AS SC, S.Product AS SP, SUM(S.Quantity) AS SQ FROM Sales AS S GROUP BY S.Category, S.Product) AS Sal 
+		ON Pro.PC=Sal.SC AND Pro.PP=Sal.SP;
 
+/*
+SELECT * FROM Sales;
+SELECT * FROM Purchase;
+SELECT * FROM AvailableTemp;
+SELECT * FROM Available;
+SELECT * FROM Available ORDER BY Category;
+*/
 
-
-
-
+/*
+DROP TABLE Sales;
+DROP TABLE Purchase;
+DROP TABLE Product;
+DROP VIEW AvailableTemp;
+DROP VIEW Available;
+*/
 /*
 CREATE DATABASE Project1
 USE Project1

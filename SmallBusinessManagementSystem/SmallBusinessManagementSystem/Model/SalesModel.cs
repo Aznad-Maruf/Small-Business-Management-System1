@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace SmallBusinessManagementSystem.Model
 {
-    class SalesModel
+    public class SalesModel
     {
+        public int SalesCode { get; set; }
+        public string Date { get; set; }
+        public string Customer { get; set; }
+        public string Category { get; set; }
+        public string Product { get; set; }
+        public double Quantity { get; set; }
     }
 }
