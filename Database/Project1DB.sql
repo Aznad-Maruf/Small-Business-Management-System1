@@ -41,7 +41,7 @@ Name VARCHAR(255) NOT NULL,
 Address VARCHAR(255),
 Email VARCHAR(255) UNIQUE NOT NULL,
 Contact VARCHAR(255) UNIQUE NOT NULL,
-LoyalityPoint INT NOT NULL
+LoyalityPoint NUMERIC(18,2) NOT NULL
 )
 
 INSERT INTO Customer(Code, Name, Address, Email, Contact, LoyalityPoint) VALUES ('1000', 'Kodu Mia', 'Mirpur 12', 'kuddu@yahoo.com', '01527558885', 25);
@@ -134,6 +134,9 @@ SELECT Code, Name, Address, Email, Contact, LoyalityPoint AS 'Loyalty Point' FRO
 SELECT Code, Name, Address, Email, Contact, ContactPerson AS 'Contact Person' FROM Supplier;
 --Purchase--
 SELECT Product AS 'Products(Code)', ManufactureDate AS 'Manufactured Date', ExpireDate AS 'Expired Date', Quantity, UnitPrice AS 'Unit Price(Tk)', UnitPrice*Quantity AS 'Total Price(Tk)', MRP AS 'MRP(Tk)', Remarks FROM Purchase;
+SELECT LoyalityPoint FROM Customer WHERE Code = '1000';
+SELECT MRP FROM Purchase WHERE Category = '1000' AND Product = '1000';
+UPDATE Customer SET LoyalityPoint = '22' Where Code = '1000';
 --Sales--
 
 
@@ -142,6 +145,7 @@ SELECT Name + '(' + Code + ')' AS Category FROM Category
 SELECT Name + '(' + Code + ')' AS Produt FROM Product WHERE Category = '1000'
 
 SELECT Quantity FROM Available WHERE Category = '1000' AND Product = '1000';
+
 
 /*
 CREATE VIEW AvailableTemp AS
@@ -197,6 +201,7 @@ SELECT Product, PQ FROM
 		ON Pro.PC=Sal.SC AND Pro.PP=Sal.SP;
 
 /*
+SELECT * FROM Customer;
 SELECT * FROM Sales;
 SELECT * FROM Purchase;
 SELECT * FROM AvailableTemp;
@@ -208,6 +213,7 @@ SELECT * FROM Available ORDER BY Category;
 DROP TABLE Sales;
 DROP TABLE Purchase;
 DROP TABLE Product;
+DROP TABLE Customer;
 DROP VIEW AvailableTemp;
 DROP VIEW Available;
 */

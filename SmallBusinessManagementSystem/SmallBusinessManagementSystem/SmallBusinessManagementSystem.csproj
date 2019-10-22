@@ -49,6 +49,7 @@
     <Compile Include="Manager\PurchaseManager.cs" />
     <Compile Include="Manager\SalesManager.cs" />
     <Compile Include="Model\ProductDetails.cs" />
+    <Compile Include="Model\PurchaseDetails.cs" />
     <Compile Include="Model\PurchaseModel.cs" />
     <Compile Include="Model\SalesModel.cs" />
     <Compile Include="Program.cs" />
