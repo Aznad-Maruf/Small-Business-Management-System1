@@ -20,6 +20,10 @@ namespace SmallBusinessManagementSystem.Model
         public string Remarks { get; set; }
         public string Edit { get; set; }
         public string Delete { get; set; }
-        public PurchaseModel PurchaseModel;
+
+        public string InvoiceNo { get; set; }
+        public string Date { get; set; }
+        public string Supplier { get; set; }
+        public string Category { get; set; }
     }
 }

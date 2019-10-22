@@ -99,31 +99,17 @@ namespace SmallBusinessManagementSystem.UI
 
         private void ClearUI(string howMuch)
         {
-            if (howMuch.Equals("Category") || howMuch.Equals("all"))
-            {
-                categoryComboBox.SelectedIndex = -1;
-                productComboBox.SelectedIndex = -1;
-                availableQuantityTextBox.Text = null;
-                mrpTextBox.Text = null;
-                totalMrpTextBox.Text = null;
-                quantityComboBox.SelectedIndex = -1;
-            }
-            if (howMuch.Equals("purchaseDetails") || howMuch.Equals("all"))
-            {
-                grandTotalTextBox.Text = null;
-                discountTextBox.Text = null;
-                discountAmountTextBox.Text = null;
-                payableAmountTextBox.Text = null;
-
-                purchaseDataGridView.DataSource = null;
-            }
-
-            if (howMuch.Equals("all"))
-            {
-                customerComboBox.SelectedIndex = -1;
-                loyaltyPointTextBox.Text = null;
-
-            }
+            if(!howMuch.Equals("Category")||!howMuch.Equals("product"))categoryComboBox.SelectedIndex = -1;
+            if (!howMuch.Equals("product")) productComboBox.SelectedIndex = -1;
+            codeTextBox.Text = null;
+            availableQuantityTextBox.Text = null;
+            quantityTextBox.Text = null;
+            unitPriceTextBox.Text = null;
+            totalPriceTextBox.Text = null;
+            previousUnitPriceTextBox.Text = null;
+            previousMrpTextBox.Text = null;
+            mrpTextBox.Text = null;
+            remarksRichTextBox.Text = null;
         }
 
         private bool GetAllData()
@@ -195,6 +181,11 @@ namespace SmallBusinessManagementSystem.UI
             purchaseDetails.TotalPrice = _purchaseModel.Quantity * _purchaseModel.UnitPrice;
             purchaseDetails.Remarks = _purchaseModel.Remarks;
 
+            purchaseDetails.InvoiceNo = _purchaseModel.InvoiceNo;
+            purchaseDetails.Category = _purchaseModel.Category;
+            purchaseDetails.Supplier = _purchaseModel.Supplier;
+            purchaseDetails.Date = _purchaseModel.Date;
+
             return purchaseDetails;
         }
 
@@ -224,27 +215,24 @@ namespace SmallBusinessManagementSystem.UI
 
         }
 
+        private void invoiceNoTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            }
+
         private void ProductComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             //MessageBox.Show(productComboBox.SelectedIndex.ToString());
             if (productComboBox.SelectedIndex == -1) return;
             if (_isProductSelected)
             {
-                //MessageBox.Show("Inside");
-                double availableQuantity = _purchaseManager.GetAvailableQuantity(categoryComboBox.Text, productComboBox.Text);
+                codeTextBox.Text = _purchaseManager.GetProductCode()
 
-
-                List<int> list = new List<int>();
-                for (int a_i = 1; a_i <= availableQuantity; a_i++) list.Add(a_i);
-                quantityComboBox.DataSource = list;
-                availableQuantityTextBox.Text = availableQuantity.ToString();
-                mrpTextBox.Text = _purchaseManager.GetMrp(categoryComboBox.Text, productComboBox.Text);
-                FillTotalMrp();
-                if (availableQuantity == 0)
-                {
-                    //MessageBox.Show("In");
-                    mrpTextBox.Text = null;
-                }
+                ClearUI("Product");
             }
 
             _isProductSelected = true;
@@ -287,17 +275,6 @@ namespace SmallBusinessManagementSystem.UI
 
         }
 
-        private void quantityComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (quantityComboBox.SelectedIndex == -1) return;
-            if (_isQuantitySelected)
-            {
-                FillTotalMrp();
-            }
-
-            _isQuantitySelected = true;
-        }
-
         private void CategoryComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             //categoryComboBox.SelectedIndex = 0;
@@ -312,9 +289,7 @@ namespace SmallBusinessManagementSystem.UI
                 productComboBox.SelectedIndex = -1;
                 productComboBox.SelectedText = "-Select-";
 
-                availableQuantityTextBox.Text = null;
-                codeTextBox.Text = null;
-                mrpTextBox.Text = null;
+                ClearUI("Category");
             }
 
             _isCategorySelected = true;

@@ -75,6 +75,7 @@ CREATE TABLE Sales(
 	Category VARCHAR(255) NOT NULL,
 	Product VARCHAR(255) NOT NULL,
 	Quantity NUMERIC(18,2) NOT NULL,
+	MRP NUMERIC(18,2) NOT NULL,
 	CONSTRAINT PK_Sales PRIMARY KEY(SalesCode),
 	CONSTRAINT FK_CustomerS FOREIGN KEY(Customer) REFERENCES Customer(Code),
 	CONSTRAINT FK_CategoryS FOREIGN KEY(Category) REFERENCES Category(Code),
@@ -83,12 +84,12 @@ CREATE TABLE Sales(
 
 SET DATEFORMAT 'dmy';
 
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('03-OCT-1999', '1000', '1001', '1000', '200');
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-12-09', '1000', '1003', '1004', '2');
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-08-03', '1003', '1000', '1002', '3');
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-13', '1004', '1000', '1003', '1');
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-23', '1001', '1003', '1004', '1');
-INSERT INTO Sales(Date, Customer, Category, Product, Quantity) VALUES ('2018-07-23', '1001', '1001', '1003', '43');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('03-OCT-1999', '1000', '1001', '1000', '200', '200');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('2018-12-09', '1000', '1003', '1004', '2', '200');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('2018-08-03', '1003', '1000', '1002', '3', '200');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('2018-07-13', '1004', '1000', '1003', '1', '300');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('2018-07-23', '1001', '1003', '1004', '1', '100');
+INSERT INTO Sales(Date, Customer, Category, Product, Quantity, MRP) VALUES ('2018-07-23', '1001', '1001', '1003', '43', '20');
 
 
 CREATE TABLE Purchase(

@@ -43,7 +43,7 @@
             this.remarksRichTextBox = new System.Windows.Forms.RichTextBox();
             this.previousMrpTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.priviousUnitPriceTextBox = new System.Windows.Forms.TextBox();
+            this.previousUnitPriceTextBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.unitPriceTextBox = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -93,6 +93,7 @@
             this.invoiceNoTextBox.Name = "invoiceNoTextBox";
             this.invoiceNoTextBox.Size = new System.Drawing.Size(264, 29);
             this.invoiceNoTextBox.TabIndex = 1;
+            this.invoiceNoTextBox.TextChanged += new System.EventHandler(this.invoiceNoTextBox_TextChanged);
             // 
             // DateDateTimePicker
             // 
@@ -149,7 +150,7 @@
             this.productGroupBox.Controls.Add(this.remarksRichTextBox);
             this.productGroupBox.Controls.Add(this.previousMrpTextBox);
             this.productGroupBox.Controls.Add(this.label2);
-            this.productGroupBox.Controls.Add(this.priviousUnitPriceTextBox);
+            this.productGroupBox.Controls.Add(this.previousUnitPriceTextBox);
             this.productGroupBox.Controls.Add(this.label14);
             this.productGroupBox.Controls.Add(this.unitPriceTextBox);
             this.productGroupBox.Controls.Add(this.label17);
@@ -242,13 +243,13 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Previous MRP (Tk)";
             // 
-            // priviousUnitPriceTextBox
+            // previousUnitPriceTextBox
             // 
-            this.priviousUnitPriceTextBox.Location = new System.Drawing.Point(731, 127);
-            this.priviousUnitPriceTextBox.Name = "priviousUnitPriceTextBox";
-            this.priviousUnitPriceTextBox.ReadOnly = true;
-            this.priviousUnitPriceTextBox.Size = new System.Drawing.Size(266, 29);
-            this.priviousUnitPriceTextBox.TabIndex = 15;
+            this.previousUnitPriceTextBox.Location = new System.Drawing.Point(731, 127);
+            this.previousUnitPriceTextBox.Name = "previousUnitPriceTextBox";
+            this.previousUnitPriceTextBox.ReadOnly = true;
+            this.previousUnitPriceTextBox.Size = new System.Drawing.Size(266, 29);
+            this.previousUnitPriceTextBox.TabIndex = 15;
             // 
             // label14
             // 
@@ -446,7 +447,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 881);
+            this.ClientSize = new System.Drawing.Size(1156, 741);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.purchaseDataGridView);
             this.Controls.Add(this.productGroupBox);
@@ -481,7 +482,7 @@
         private System.Windows.Forms.DataGridView purchaseDataGridView;
         private System.Windows.Forms.TextBox previousMrpTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox priviousUnitPriceTextBox;
+        private System.Windows.Forms.TextBox previousUnitPriceTextBox;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox quantityTextBox;
         private System.Windows.Forms.Label label15;
